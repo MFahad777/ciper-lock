@@ -7,7 +7,7 @@ const crypto = require("crypto");
  * Importing Local Libraries
  */
 
-class CryptoLock {
+class ShieldCrypt {
 
     constructor(data = {}) {
 
@@ -90,4 +90,4 @@ class CryptoLock {
 
 }
 
-module.exports = CryptoLock
+module.exports = ShieldCrypt

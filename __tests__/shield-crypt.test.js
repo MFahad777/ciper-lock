@@ -1,14 +1,14 @@
-const CipherLock = require("../index");
+const ShieldCrypt = require("../index");
 
-describe("Cipher Lock Testing", () => {
+describe("Shield Crypt Testing", () => {
 
     const dummyData = "A_Dummy_Data_String";
 
     test("Encrypted Data Must Not Be Equal To Actual Data", () => {
 
-        const cipherLockInstance = new CipherLock();
+        const shieldCryptInstance = new ShieldCrypt();
 
-        const encryptedData = cipherLockInstance.encrypt(dummyData);
+        const encryptedData = shieldCryptInstance.encrypt(dummyData);
 
         expect(() => encryptedData !== dummyData).toBeTruthy()
 
@@ -16,11 +16,11 @@ describe("Cipher Lock Testing", () => {
 
     test("Decrypted Value Must Be Equal To The Actual Data", () => {
 
-        const cipherLockInstance = new CipherLock();
+        const shieldCryptInstance = new ShieldCrypt();
 
-        const encryptedData = cipherLockInstance.encrypt(dummyData);
+        const encryptedData = shieldCryptInstance.encrypt(dummyData);
 
-        const decryptedData = cipherLockInstance.decrypt(encryptedData);
+        const decryptedData = shieldCryptInstance.decrypt(encryptedData);
 
         expect(decryptedData.toString()).toEqual(dummyData);
     });
@@ -31,27 +31,27 @@ describe("Cipher Lock Testing", () => {
 
         const iv = "2533b656ef3e072a";
 
-        const cipherLockInstance = new CipherLock({
+        const shieldCryptInstance = new ShieldCrypt({
             key,
             iv
         });
 
-        const encryptedData = cipherLockInstance.encrypt(dummyData);
+        const encryptedData = shieldCryptInstance.encrypt(dummyData);
 
-        const decryptedData = cipherLockInstance.decrypt(encryptedData);
+        const decryptedData = shieldCryptInstance.decrypt(encryptedData);
 
         expect(decryptedData.toString()).toEqual(dummyData);
 
-        expect(cipherLockInstance.key).toEqual(key);
+        expect(shieldCryptInstance.key).toEqual(key);
 
-        expect(cipherLockInstance.iv).toEqual(iv);
+        expect(shieldCryptInstance.iv).toEqual(iv);
 
     })
 
     test("With Custom CallBacks", () => {
-        const cipherLockInstance = new CipherLock();
+        const shieldCryptInstance = new ShieldCrypt();
 
-        const encryptedData = cipherLockInstance.encrypt(dummyData, (encryptedData, rawData) => {
+        const encryptedData = shieldCryptInstance.encrypt(dummyData, (encryptedData, rawData) => {
 
             // can do other operations if needed.
 
@@ -67,7 +67,7 @@ describe("Cipher Lock Testing", () => {
 
         expect(encryptedData.anyOtherValue).toEqual("Any Value");
 
-        const decryptedData = cipherLockInstance.decrypt(encryptedData.data, (decryptedData) => {
+        const decryptedData = shieldCryptInstance.decrypt(encryptedData.data, (decryptedData) => {
 
             // can do other operations if needed.
 
