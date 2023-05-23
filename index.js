@@ -16,23 +16,31 @@ class ShieldCrypt {
         // If not passing key and Iv
         if (!key || !iv) {
 
-            const generatedKeys = this.#generateKeyIv();
+            const generatedKeys = ShieldCrypt.generateKeyIv();
 
             key = generatedKeys.key;
             iv = generatedKeys.iv;
         }
 
         this.algorithm = algorithm;
-        this.key = key;
-        this.iv = iv;
+
+        this.key = typeof key === "string"
+            ? Buffer.from(key,'hex')
+            : key;
+
+        this.iv = typeof iv === "string"
+            ? Buffer.from(iv,'hex')
+            : iv;
     }
 
     /**
-     * @private
+     * Generate Key and IV
      *
-     * @returns {{iv: Buffer, key: Buffer}}
+     * @param {boolean} [toHex] Set to true if you require hex of key and iv
+     *
+     * @returns {{iv: Buffer | string, key: Buffer | string}}
      */
-    #generateKeyIv() {
+    static generateKeyIv(toHex = false) {
 
         const iv = crypto.randomBytes(16);
 
@@ -42,8 +50,8 @@ class ShieldCrypt {
             .digest();
 
         return {
-            key,
-            iv
+            key : toHex ? key.toString('hex') : key,
+            iv : toHex ? iv.toString('hex') : iv
         }
     }
 
@@ -87,7 +95,6 @@ class ShieldCrypt {
         return decrypted;
 
     }
-
 }
 
 module.exports = ShieldCrypt

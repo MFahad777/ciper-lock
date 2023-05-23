@@ -27,9 +27,9 @@ describe("Shield Crypt Testing", () => {
 
     test("Work With Custom Key And IV", () => {
 
-        const key = "18f94f63e0b451e594630c5225533450";
+        const key = "35a1896c975f5572f6a3afd7d992fea6c9f3812a488a98ce9930ea0b7bca5e66";
 
-        const iv = "2533b656ef3e072a";
+        const iv = "af78d78b5d3bcbe4b1497b84fa8a4b27";
 
         const shieldCryptInstance = new ShieldCrypt({
             key,
@@ -42,9 +42,9 @@ describe("Shield Crypt Testing", () => {
 
         expect(decryptedData.toString()).toEqual(dummyData);
 
-        expect(shieldCryptInstance.key).toEqual(key);
+        expect(shieldCryptInstance.key.toString('hex')).toEqual(key);
 
-        expect(shieldCryptInstance.iv).toEqual(iv);
+        expect(shieldCryptInstance.iv.toString('hex')).toEqual(iv);
 
     })
 
@@ -83,6 +83,34 @@ describe("Shield Crypt Testing", () => {
         expect(decryptedData.data).toBeTruthy();
 
         expect(decryptedData.anyOtherValue).toEqual("Decrypted Data");
+
+    })
+
+    test("Generate Key And Iv", () => {
+
+        const { key , iv } = ShieldCrypt.generateKeyIv();
+
+        expect(key).toBeTruthy();
+
+        expect(iv).toBeTruthy();
+    })
+
+    test("Encrypt/ Decrypt With Generated Key and Iv",() => {
+
+        const { key , iv } = ShieldCrypt.generateKeyIv(true);
+
+        const shieldCryptInstance = new ShieldCrypt({
+            key,
+            iv
+        })
+
+        const encryptedData = shieldCryptInstance.encrypt(dummyData);
+
+        const decryptedData = shieldCryptInstance.decrypt(encryptedData);
+
+        expect(encryptedData).not.toEqual(dummyData);
+
+        expect(decryptedData.toString()).toEqual(dummyData);
 
     })
 
