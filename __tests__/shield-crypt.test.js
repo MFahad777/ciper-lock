@@ -42,9 +42,9 @@ describe("Shield Crypt Testing", () => {
 
         expect(decryptedData.toString()).toEqual(dummyData);
 
-        expect(shieldCryptInstance.key.toString('hex')).toEqual(key);
+        expect(shieldCryptInstance.getKey.toString('hex')).toEqual(key);
 
-        expect(shieldCryptInstance.iv.toString('hex')).toEqual(iv);
+        expect(shieldCryptInstance.getIV.toString('hex')).toEqual(iv);
 
     })
 
