@@ -1,4 +1,4 @@
-const ShieldCrypt = require("../index");
+const ShieldCrypt  = require("../dist");
 
 describe("Shield Crypt Testing", () => {
 

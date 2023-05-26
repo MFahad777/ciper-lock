@@ -1,20 +1,32 @@
 {
   "name": "shield-crypt",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple encryption and decryption library using crypto",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/MFahad777/shield-crypt"
   },
   "homepage": "https://github.com/MFahad777/shield-crypt/blob/main/README.md",
-  "keywords": ["crypto","cipher","encryption","shield-crypt"],
+  "keywords": [
+    "crypto",
+    "cipher",
+    "encryption",
+    "shield-crypt"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
   "author": "Muhammad Fahad",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^29.5.0"
+    "@types/node": "^20.2.4",
+    "jest": "^29.5.0",
+    "typescript": "^5.0.4"
   }
 }
