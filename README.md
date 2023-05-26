@@ -25,13 +25,13 @@ You can create a new instance of ShieldCrypt by providing an optional configurat
 
 ```javascript
 // Without configuration
-const shieldCryptInstance = new ShieldCrypt();
+const shieldCryptInstance = new Index();
 
 // With custom configuration
-const shieldCryptInstance = new ShieldCrypt({
-algorithm: 'aes-256-cbc', // Optional: encryption algorithm, default is aes-256-ctr
-key: 'mySecretKey', // Optional: encryption key
-iv: 'myInitializationVector' // Optional: initialization vector
+const shieldCryptInstance = new Index({
+    algorithm: 'aes-256-cbc', // Optional: encryption algorithm, default is aes-256-ctr
+    key: 'mySecretKey', // Optional: encryption key
+    iv: 'myInitializationVector' // Optional: initialization vector
 });
 ```
 

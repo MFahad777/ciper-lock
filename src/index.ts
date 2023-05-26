@@ -1,22 +1,23 @@
 /**
  * Importing Built In Library
  */
-const crypto = require("crypto");
+import crypto, { Cipher } from "crypto";
 
-/**
- * Importing Local Libraries
- */
+import IConstructorObject from "./declaration/object";
 
-class ShieldCrypt {
+class Index {
+    private algorithm: string;
+    private key: string | Buffer;
+    private iv: string | Buffer;
 
-    constructor(data = {}) {
+    constructor(data: IConstructorObject = {}) {
 
         let { algorithm = "aes-256-ctr", key = null, iv = null } = data;
 
         // If not passing key and Iv
         if (!key || !iv) {
 
-            const generatedKeys = ShieldCrypt.generateKeyIv();
+            const generatedKeys = Index.generateKeyIv();
 
             key = generatedKeys.key;
             iv = generatedKeys.iv;
@@ -33,6 +34,14 @@ class ShieldCrypt {
             : iv;
     }
 
+    get getKey() {
+        return this.key
+    }
+
+    get getIV() {
+        return this.iv
+    }
+
     /**
      * Generate Key and IV
      *
@@ -40,11 +49,11 @@ class ShieldCrypt {
      *
      * @returns {{iv: Buffer | string, key: Buffer | string}}
      */
-    static generateKeyIv(toHex = false) {
+    static generateKeyIv(toHex: boolean = false) {
 
-        const iv = crypto.randomBytes(16);
+        const iv : Buffer = crypto.randomBytes(16);
 
-        const key = crypto
+        const key : Buffer = crypto
             .createHash('sha256')
             .update(String(iv))
             .digest();
@@ -61,13 +70,13 @@ class ShieldCrypt {
      * @param {string} data
      * @param {function} [callback] Optional Callback function
      */
-    encrypt(data,callback) {
+    encrypt(data : string, callback? : Function) {
 
-        const cipher = crypto.createCipheriv(this.algorithm, this.key, this.iv);
+        const cipher : Cipher = crypto.createCipheriv(this.algorithm, this.key, this.iv);
 
-        const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
+        const encrypted : Buffer = Buffer.concat([cipher.update(data), cipher.final()]);
 
-        const encryptedData = encrypted.toString('hex');
+        const encryptedData : string = encrypted.toString('hex');
 
         if (callback) {
             return callback(encrypted, data);
@@ -82,7 +91,7 @@ class ShieldCrypt {
      * @param {string} encryptedData
      * @param {function} [callback] Optional function
      */
-    decrypt(encryptedData, callback) {
+    decrypt(encryptedData : string, callback? : Function) {
 
         const decipher = crypto.createDecipheriv(this.algorithm, this.key, this.iv);
 
@@ -97,4 +106,4 @@ class ShieldCrypt {
     }
 }
 
-module.exports = ShieldCrypt
+export = Index
